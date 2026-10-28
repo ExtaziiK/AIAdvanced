@@ -7,6 +7,7 @@ Site d’une page : micro-cours de 15 minutes pour prolonger la durée de vie de
 ```
 index.html               la page complète (HTML, CSS et JS intégrés)
 assets/presentation.mp4  vidéo de présentation (H.264, 720p, 52 s)
+assets/batterie_mode_emploi.mp4  vidéo « Batterie, mode d’emploi » (H.264, 1080p, 1 min 43 s)
 assets/poster.jpg        image affichée avant la lecture de la vidéo
 .nojekyll                indique à GitHub Pages de publier les fichiers tels quels
 ```
