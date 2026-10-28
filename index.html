@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Micro-cours de 15 minutes pour comprendre et ralentir l’usure de la batterie de votre téléphone, sur iPhone et Android.">
+<meta property="og:title" content="Batterie, mode d’emploi">
+<meta property="og:description" content="Micro-cours de 15 minutes : fonctionnement lithium-ion, chaleur et extrêmes, réglages iPhone et Android.">
+<meta property="og:image" content="assets/poster.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233CCBA6' stroke-width='2' stroke-linecap='round'%3E%3Crect x='2.5' y='7' width='17' height='10' rx='2.5'/%3E%3Cpath d='M21.5 10.5v3M6 10v4M9.5 10v4'/%3E%3C/svg%3E">
+<style>
+html{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img,video{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>Batterie, mode d’emploi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout : une colonne de lecture (46rem max), bandes pleine largeur claires / bleu nuit, cartes 12–16 px */
+:root {
+  --bg: #F4F7F9;
+  --surface: #FFFFFF;
+  --surface-2: #EAF0F4;
+  --ink: #0F1B2D;
+  --muted: #4E5D73;
+  --line: #D8E1E9;
+  --night: #0F1D3A;
+  --night-2: #172950;
+  --night-ink: #E8EEF7;
+  --night-muted: #AAB9D2;
+  --night-line: #2A3D66;
+  --mint: #3CCBA6;
+  --mint-ink: #0B7259;
+  --mint-soft: #DDF5EE;
+  --amber: #F0A63A;
+  --amber-ink: #8F5306;
+  --amber-soft: #FDF0DA;
+  --on-mint: #052A20;
+  --on-amber: #2E1A00;
+  --shadow: 0 1px 2px rgba(15, 29, 58, .06), 0 6px 20px rgba(15, 29, 58, .06);
+
+  --f-display: "Sora", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --r-card: 16px;
+  --r-ctrl: 12px;
+  --read: 46rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B1220; --surface: #121B2E; --surface-2: #18233A; --ink: #E6ECF5; --muted: #9DABC1; --line: #26334D;
+    --night: #070D1A; --night-2: #101A33; --night-ink: #E8EEF7; --night-muted: #AAB9D2; --night-line: #24345A;
+    --mint: #4FD6B3; --mint-ink: #62E0C0; --mint-soft: #10332B; --amber: #F3B353; --amber-ink: #F5BE68; --amber-soft: #36270F;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B1220; --surface: #121B2E; --surface-2: #18233A; --ink: #E6ECF5; --muted: #9DABC1; --line: #26334D;
+  --night: #070D1A; --night-2: #101A33; --night-ink: #E8EEF7; --night-muted: #AAB9D2; --night-line: #24345A;
+  --mint: #4FD6B3; --mint-ink: #62E0C0; --mint-soft: #10332B; --amber: #F3B353; --amber-ink: #F5BE68; --amber-soft: #36270F;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: 1.0625rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 30; background: var(--bg);
+}
+
+/* Bande sombre : on redéfinit les jetons, rien d'autre */
+.night {
+  --ink: var(--night-ink); --muted: var(--night-muted); --line: var(--night-line);
+  --surface: var(--night-2); --surface-2: color-mix(in srgb, var(--night-2) 70%, var(--night));
+  --mint-ink: var(--mint); --amber-ink: var(--amber);
+  --mint-soft: color-mix(in srgb, var(--mint) 16%, transparent);
+  --amber-soft: color-mix(in srgb, var(--amber) 16%, transparent);
+  --shadow: none;
+  background: var(--night); color: var(--ink);
+}
+
+.wrap {
+  max-width: calc(var(--read) + 32px); margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.band { padding-block: clamp(56px, 9vw, 96px); }
+.band + .band:not(.night) { padding-top: 0; }
+.stack { display: grid; gap: 20px; }
+.stack-lg { display: grid; gap: 40px; }
+
+/* Typographie */
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+h1 { font-size: clamp(2rem, 6vw, 3.1rem); font-weight: 700; }
+h2 { font-size: clamp(1.6rem, 4.2vw, 2.15rem); font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 600; }
+p { margin: 0; }
+.lead { font-size: 1.2rem; color: var(--muted); max-width: 38rem; }
+.eyebrow {
+  font-family: var(--f-mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--mint-ink); display: inline-flex; align-items: center; gap: 8px;
+}
+.meta { font-family: var(--f-mono); font-size: .8rem; color: var(--muted); letter-spacing: .02em; }
+.muted { color: var(--muted); }
+strong { font-weight: 700; }
+ul.clean { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* Icônes : un seul style, trait 1.75, extrémités arrondies */
+.ic { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.ic-badge {
+  width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; flex: none;
+  background: var(--mint-soft); color: var(--mint-ink);
+}
+.ic-badge.amber { background: var(--amber-soft); color: var(--amber-ink); }
+
+/* En-tête collant */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; gap: 16px; min-height: 56px; }
+.brand { display: flex; align-items: center; gap: 8px; font-family: var(--f-display); font-weight: 600; font-size: .98rem; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.brand .ic { color: var(--mint-ink); }
+.top nav { margin-left: auto; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.top nav::-webkit-scrollbar { display: none; }
+.top nav a {
+  font-size: .9rem; color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 10px; white-space: nowrap;
+}
+.top nav a:hover { color: var(--ink); background: var(--surface-2); }
+.progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--mint); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* Boutons */
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; font: 600 1rem/1 var(--f-body);
+  padding: 13px 18px; border-radius: var(--r-ctrl); text-decoration: none; cursor: pointer; border: 1.5px solid transparent;
+  transition: transform .15s ease, background-color .15s ease, border-color .15s ease;
+}
+.btn .ic { width: 18px; height: 18px; }
+.btn-mint { background: var(--mint); color: var(--on-mint); }
+.btn-mint:hover { transform: translateY(-1px); background: color-mix(in srgb, var(--mint) 88%, #fff); }
+.btn-ghost { border-color: var(--amber); color: var(--ink); background: transparent; }
+.btn-ghost:hover { background: var(--amber-soft); }
+:focus-visible { outline: 2.5px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+
+/* Cartes */
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card);
+  padding: clamp(20px, 3.5vw, 28px); box-shadow: var(--shadow); min-width: 0;
+}
+.card.tight { padding: 18px 20px; }
+.grid-2 { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 680px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+.row { display: flex; gap: 14px; align-items: flex-start; }
+.row > div { min-width: 0; display: grid; gap: 4px; }
+
+.takeaway {
+  border-radius: var(--r-card); padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start;
+  background: var(--mint-soft); color: var(--ink); border: 1px solid color-mix(in srgb, var(--mint) 40%, transparent);
+}
+.takeaway .ic { color: var(--mint-ink); margin-top: 2px; }
+.takeaway.amber { background: var(--amber-soft); border-color: color-mix(in srgb, var(--amber) 45%, transparent); }
+.takeaway.amber .ic { color: var(--amber-ink); }
+.note { border-left: 0; background: var(--surface-2); border-radius: var(--r-ctrl); padding: 16px 18px; color: var(--muted); font-size: .98rem; }
+
+/* En-tête de module */
+.mod-head { display: grid; gap: 12px; }
+.mod-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: .85rem; padding: 4px 10px; border-radius: 999px;
+  background: var(--surface-2); color: var(--muted); border: 1px solid var(--line);
+}
+.chip .ic { width: 15px; height: 15px; }
+.section-title { display: flex; align-items: baseline; gap: 10px; }
+.section-title .n { font-family: var(--f-mono); font-size: .85rem; color: var(--mint-ink); }
+
+/* Vidéo d'introduction */
+.video-card { margin: 0; display: grid; gap: 10px; }
+.video-frame { border-radius: 16px; overflow: hidden; background: var(--night); border: 1px solid var(--line); box-shadow: var(--shadow); aspect-ratio: 16 / 9; max-width: 100%; }
+.video-frame video { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--night); }
+.video-card figcaption { display: flex; align-items: center; gap: 8px; }
+.video-card figcaption .ic { width: 16px; height: 16px; }
+
+/* Hero : jauge de charge */
+.hero { padding-block: clamp(48px, 8vw, 88px) clamp(40px, 6vw, 64px); }
+.gauge-card { display: grid; gap: 18px; }
+.gauge { position: relative; padding-top: 6px; }
+.gauge-bar {
+  display: flex; height: 44px; border-radius: 12px; overflow: hidden; border: 1.5px solid var(--line); background: var(--surface-2);
+}
+.gauge-bar > span { display: block; height: 100%; }
+.z-low { width: 10%; background: repeating-linear-gradient(135deg, var(--amber) 0 6px, color-mix(in srgb, var(--amber) 60%, transparent) 6px 12px); }
+.z-gap { width: 10%; }
+.z-ok { width: 60%; background: var(--mint); position: relative; }
+.z-high { width: 10%; background: repeating-linear-gradient(135deg, var(--amber) 0 6px, color-mix(in srgb, var(--amber) 60%, transparent) 6px 12px); }
+.ticks { position: relative; height: 22px; margin-top: 6px; }
+.ticks span { white-space: nowrap; position: absolute; transform: translateX(-50%); font-family: var(--f-mono); font-size: .75rem; color: var(--muted); }
+.ticks span:first-child { transform: none; }
+.ticks span:last-child { transform: translateX(-100%); }
+.legend { display: grid; gap: 10px; grid-template-columns: 1fr; font-size: .95rem; }
+@media (min-width: 620px) { .legend { grid-template-columns: repeat(3, 1fr); } }
+.legend div { display: flex; gap: 10px; align-items: flex-start; }
+.sw { width: 14px; height: 14px; border-radius: 4px; flex: none; margin-top: 5px; }
+.sw.ok { background: var(--mint); }
+.sw.warn { background: var(--amber); }
+.sw.heat { background: transparent; border: 2px solid var(--amber); }
+
+/* Objectifs */
+.goals { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 680px) { .goals { grid-template-columns: 1fr 1fr; } }
+
+/* Schéma ions */
+.diagram { display: grid; gap: 14px; }
+.diagram-frame { background: var(--surface-2); border-radius: 12px; padding: 12px; overflow-x: auto; }
+.diagram-frame svg { display: block; width: 100%; height: auto; min-width: 300px; margin-inline: auto; }
+.d-anode { fill: color-mix(in srgb, var(--ink) 8%, transparent); stroke: var(--ink); stroke-width: 1.5; }
+.d-cathode { fill: color-mix(in srgb, var(--amber) 14%, transparent); stroke: var(--ink); stroke-width: 1.5; }
+.d-layer { stroke: var(--muted); stroke-width: 1.5; }
+.d-dot { fill: var(--amber); opacity: .7; }
+.d-sep { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.d-wire { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.d-label { fill: var(--ink); font-family: var(--f-display); font-weight: 600; font-size: 17px; }
+.d-sub { fill: var(--muted); font-family: var(--f-body); font-size: 14px; }
+.d-ion { fill: var(--mint); stroke: var(--surface); stroke-width: 1.5; }
+.d-arrow { fill: none; stroke: var(--mint-ink); stroke-width: 2; }
+.d-arrowhead { fill: var(--mint-ink); }
+.d-e { fill: var(--muted); font-family: var(--f-mono); font-size: 13px; }
+.ions circle { animation: ion 3.2s ease-in-out infinite; transform-box: fill-box; }
+.ions circle:nth-child(2) { animation-delay: -.6s; }
+.ions circle:nth-child(3) { animation-delay: -1.3s; }
+.ions circle:nth-child(4) { animation-delay: -2s; }
+.ions circle:nth-child(5) { animation-delay: -2.6s; }
+.mode-use .ions circle { animation-name: ion-back; }
+@keyframes ion { 0% { transform: translateX(0); opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateX(-250px); opacity: 0; } }
+@keyframes ion-back { 0% { transform: translateX(-250px); opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { transform: translateX(0); opacity: 0; } }
+.mode-use .arrow-charge, .arrow-use { display: none; }
+.mode-use .arrow-use { display: inline; }
+
+.seg { display: inline-flex; flex: none; padding: 4px; gap: 4px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; }
+.seg button {
+  font: 600 .95rem/1 var(--f-body); color: var(--muted); background: transparent; border: 0; padding: 10px 14px; border-radius: 9px; cursor: pointer;
+  display: inline-flex; gap: 8px; align-items: center;
+}
+.seg button .ic { width: 18px; height: 18px; }
+.seg button[aria-selected="true"], .seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.night .seg button[aria-selected="true"] { background: var(--night); }
+
+/* Cycle */
+.cycle { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.cyc { flex: 1 1 120px; min-width: 0; display: grid; gap: 6px; }
+.cyc-bar { height: 14px; border-radius: 7px; background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
+.cyc-bar span { display: block; height: 100%; width: 50%; background: var(--mint); }
+.cyc-bar.full span { width: 100%; }
+.op { font-family: var(--f-mono); color: var(--muted); font-size: 1.1rem; }
+
+/* Tableau */
+.table-wrap { overflow-x: auto; border-radius: var(--r-card); border: 1px solid var(--line); }
+table { width: 100%; border-collapse: collapse; font-size: .98rem; min-width: 460px; }
+th, td { text-align: left; padding: 14px 16px; vertical-align: top; }
+th { font-family: var(--f-mono); font-weight: 500; font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
+td { border-top: 1px solid var(--line); background: var(--surface); }
+
+/* Quiz */
+.quiz { display: grid; gap: 16px; }
+.quiz-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.score { font-family: var(--f-mono); font-size: .85rem; color: var(--muted); }
+.q { display: grid; gap: 10px; }
+.q-title { font-weight: 600; }
+.opts { display: grid; gap: 8px; }
+.opt {
+  text-align: left; font: inherit; font-size: 1rem; color: var(--ink); background: var(--surface);
+  border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer;
+  display: flex; gap: 12px; align-items: flex-start; transition: border-color .15s ease, background-color .15s ease;
+}
+.opt:hover:not([disabled]) { border-color: var(--mint); }
+.opt .k { font-family: var(--f-mono); font-size: .85rem; color: var(--muted); padding-top: 2px; }
+.opt[disabled] { cursor: default; }
+.opt.is-right { border-color: var(--mint); background: var(--mint-soft); }
+.opt.is-wrong { border-color: var(--amber); background: var(--amber-soft); }
+.opt.is-dim { opacity: .62; }
+.fb { font-size: .95rem; display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 10px; background: var(--surface-2); }
+.fb .ic { width: 18px; height: 18px; margin-top: 3px; }
+.fb.ok .ic { color: var(--mint-ink); }
+.fb.ko .ic { color: var(--amber-ink); }
+.reset { font: 600 .9rem var(--f-body); background: none; border: 0; color: var(--mint-ink); cursor: pointer; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Réglages */
+.path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.path span { font-size: .92rem; padding: 4px 10px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--line); }
+.path .ic { width: 14px; height: 14px; color: var(--muted); }
+
+/* Check-list */
+.check { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); cursor: pointer; }
+.check input { appearance: none; -webkit-appearance: none; width: 22px; height: 22px; border-radius: 7px; border: 1.75px solid var(--muted); flex: none; margin: 1px 0 0; display: grid; place-items: center; cursor: pointer; }
+.check input:checked { background: var(--mint); border-color: var(--mint); }
+.check input:checked::after { content: ""; width: 10px; height: 6px; border: 2px solid var(--on-mint); border-top: 0; border-right: 0; transform: rotate(-45deg) translate(1px, -1px); }
+.check:has(input:checked) { border-color: var(--mint); }
+.check:has(input:checked) span { color: var(--muted); }
+
+/* Comparatif */
+.compare .card h3 { display: flex; gap: 10px; align-items: center; }
+.compare dl { margin: 0; display: grid; gap: 12px; }
+.compare dt { font-family: var(--f-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.compare dd { margin: 2px 0 0; }
+
+/* Conclusion */
+.plan { counter-reset: s; display: grid; gap: 12px; }
+.plan li { display: flex; gap: 14px; align-items: flex-start; }
+.when { font-family: var(--f-mono); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: var(--amber); display: block; }
+.final { font-family: var(--f-display); font-size: clamp(1.25rem, 3.4vw, 1.6rem); line-height: 1.35; font-weight: 600; text-wrap: balance; }
+.final em { font-style: normal; color: var(--mint); }
+footer { padding-block: 28px; font-size: .9rem; color: var(--muted); border-top: 1px solid var(--line); }
+
+/* Apparition discrète, depuis un état déjà visible */
+.reveal { transition: transform .5s ease, opacity .5s ease; }
+.js .reveal.pending { transform: translateY(10px); opacity: .55; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .reveal.pending { transform: none; opacity: 1; }
+  .ions circle { opacity: 1; }
+  .ions circle:nth-child(1) { transform: translateX(-40px); }
+  .ions circle:nth-child(2) { transform: translateX(-90px); }
+  .ions circle:nth-child(3) { transform: translateX(-140px); }
+  .ions circle:nth-child(4) { transform: translateX(-190px); }
+  .ions circle:nth-child(5) { transform: translateX(-230px); }
+}
+</style>
+</head>
+<body>
+<!-- Jeu d'icônes linéaires (un seul style) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M21.5 10.5v3"/><path d="M6 10v4M9.5 10v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></symbol>
+  <symbol id="i-cycle" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4"/><path d="M6 21v-4h4"/></symbol>
+  <symbol id="i-thermo" viewBox="0 0 24 24"><path d="M10 13.5V5a2 2 0 0 1 4 0v8.5a4 4 0 1 1-4 0Z"/><path d="M12 9v6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10"/><path d="M5 8h14"/><path d="M5 8l-2.5 6a2.5 2.5 0 0 0 5 0Z"/><path d="M19 8l-2.5 6a2.5 2.5 0 0 0 5 0Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16 10"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 4.2 2.8 17.5A2 2 0 0 0 4.5 20.5h15a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0Z"/><path d="M12 9.5v4M12 17h0"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h0"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></symbol>
+  <symbol id="i-crack" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="m12 3.5-2 5 3 3-2 4 1 5"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5Z"/><path d="M9.5 15a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2.5v19M3.8 7.2l16.4 9.6M3.8 16.8l16.4-9.6"/><path d="m9.5 4 2.5 2 2.5-2M9.5 20l2.5-2 2.5 2"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M21.5 10.5v3"/><path d="M5.5 10h11v4h-11z"/></symbol>
+  <symbol id="i-empty" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2.5"/><path d="M21.5 10.5v3"/><path d="M6 10v4"/></symbol>
+  <symbol id="i-bright" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 7.5v9" /><path d="M12 2.5v1.5M12 20v1.5M4.6 4.6l1 1M18.4 18.4l1 1M2.5 12H4M20 12h1.5M4.6 19.4l1-1M18.4 5.6l1-1"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 5 13.5h6l-1 8 8-11h-6l1-8Z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.5 6.5a4 4 0 0 0-5.3 5.3L3.5 17.5l3 3 5.7-5.7a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.4-.6-.6-2.4 2.6-2.6Z"/></symbol>
+</svg>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#debut"><svg class="ic"><use href="#i-battery"/></svg>Batterie, mode d’emploi</a>
+    <nav aria-label="Modules">
+      <a href="#module-1">Module 1</a>
+      <a href="#module-2">Module 2</a>
+      <a href="#module-3">Module 3</a>
+      <a href="#plan">Plan d’action</a>
+    </nav>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="debut">
+    <div class="wrap stack-lg">
+      <div class="stack">
+        <span class="eyebrow"><svg class="ic" style="width:16px;height:16px"><use href="#i-clock"/></svg>Micro-cours · 15 minutes · iPhone et Android</span>
+        <h1>Prolongez la durée de vie de la batterie de votre téléphone</h1>
+        <p class="lead">Comprendre pourquoi une batterie s’use, et ralentir cette usure avec des habitudes simples.</p>
+        <div class="actions">
+          <a class="btn btn-mint" href="#module-1">Commencer le cours<svg class="ic"><use href="#i-down"/></svg></a>
+          <a class="btn btn-ghost" href="#reglages"><svg class="ic"><use href="#i-sliders"/></svg>Aller directement aux réglages</a>
+        </div>
+      </div>
+
+      <figure class="video-card">
+        <div class="video-frame">
+          <video id="intro-video" controls playsinline preload="metadata" poster="assets/poster.jpg" aria-label="Vidéo de présentation du micro-cours, 52 secondes, sous-titrée">
+            <source src="assets/presentation.mp4" type="video/mp4">
+            Votre navigateur ne lit pas cette vidéo.
+          </video>
+        </div>
+        <figcaption class="meta"><svg class="ic"><use href="#i-clock"/></svg>Présentation du cours · 52 s · sous-titrée</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- PUBLIC / OBJECTIFS -->
+  <section class="band" aria-labelledby="public">
+    <div class="wrap stack-lg">
+      <div class="grid-2">
+        <div class="stack">
+          <span class="eyebrow">À qui s’adresse ce cours</span>
+          <h2 id="public">Pour les téléphones de tous les jours</h2>
+          <p class="muted">Votre téléphone a deux à quatre ans et tient moins bien la charge ? Ce cours est pour vous. Aucune connaissance technique requise.</p>
+        </div>
+        <div class="takeaway" style="align-self:start">
+          <svg class="ic"><use href="#i-info"/></svg>
+          <p><strong>Le message à retenir.</strong> La chaleur et les extrêmes de charge accélèrent l’usure. Évitez-les quand c’est facile, sans sacrifier votre autonomie.</p>
+        </div>
+      </div>
+
+      <div class="stack">
+        <h3>À la fin du cours, vous pourrez</h3>
+        <div class="goals">
+          <div class="card tight row reveal"><span class="ic-badge"><svg class="ic"><use href="#i-cycle"/></svg></span><div><p>Comprendre une batterie lithium-ion et ses cycles.</p></div></div>
+          <div class="card tight row reveal"><span class="ic-badge amber"><svg class="ic"><use href="#i-thermo"/></svg></span><div><p>Savoir ce qui accélère l’usure.</p></div></div>
+          <div class="card tight row reveal"><span class="ic-badge"><svg class="ic"><use href="#i-sliders"/></svg></span><div><p>Activer les bons réglages.</p></div></div>
+          <div class="card tight row reveal"><span class="ic-badge"><svg class="ic"><use href="#i-scale"/></svg></span><div><p>Savoir ce qui est réaliste.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULE 1 -->
+  <section class="band" id="module-1" aria-labelledby="m1-title">
+    <div class="wrap stack-lg">
+      <div class="mod-head">
+        <span class="eyebrow">Module 1 sur 3</span>
+        <h2 id="m1-title">Pourquoi une batterie s’use avec le temps</h2>
+        <div class="mod-meta">
+          <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>4 minutes</span>
+          <span class="chip"><svg class="ic"><use href="#i-target"/></svg>Fonctionnement et cycles</span>
+        </div>
+      </div>
+
+      <div class="stack">
+        <h3 class="section-title"><span class="n">1.1</span>Deux réservoirs d’ions</h3>
+        <p><strong>L’anode</strong> (graphite) et <strong>la cathode</strong> (oxyde métallique) baignent dans un électrolyte. Un séparateur les isole tout en laissant passer les ions.</p>
+      </div>
+
+      <figure class="card diagram reveal" id="ion-diagram" style="margin:0">
+        <div class="quiz-head">
+          <h3>Le va-et-vient des ions</h3>
+          <div class="seg" role="group" aria-label="Choisir la situation">
+            <button type="button" id="mode-charge" aria-pressed="true"><svg class="ic"><use href="#i-bolt"/></svg>Recharge</button>
+            <button type="button" id="mode-use" aria-pressed="false"><svg class="ic"><use href="#i-phone"/></svg>Utilisation</button>
+          </div>
+        </div>
+        <div class="diagram-frame">
+          <svg viewBox="0 0 520 250" role="img" aria-labelledby="ion-desc">
+            <desc id="ion-desc">Schéma d’une cellule : anode en graphite à gauche, séparateur au centre, cathode à droite. Les ions lithium circulent dans l’électrolyte, les électrons passent par le circuit extérieur.</desc>
+            <!-- circuit extérieur -->
+            <path class="d-wire" d="M90 66 V30 H430 V66"/>
+            <rect x="222" y="16" width="76" height="28" rx="8" fill="var(--surface)" stroke="var(--muted)" stroke-width="1.5"/>
+            <text class="d-e" x="260" y="35" text-anchor="middle"><tspan class="arrow-charge">chargeur</tspan><tspan class="arrow-use">téléphone</tspan></text>
+            <text class="d-e" x="150" y="24" text-anchor="middle"><tspan class="arrow-charge">← e⁻</tspan><tspan class="arrow-use">e⁻ →</tspan></text>
+            <text class="d-e" x="372" y="24" text-anchor="middle"><tspan class="arrow-charge">← e⁻</tspan><tspan class="arrow-use">e⁻ →</tspan></text>
+            <!-- anode -->
+            <rect class="d-anode" x="30" y="66" width="120" height="130" rx="12"/>
+            <path class="d-layer" d="M46 88h88M46 108h88M46 128h88M46 148h88M46 168h88"/>
+            <!-- séparateur -->
+            <path class="d-sep" d="M260 70v124"/>
+            <!-- cathode -->
+            <rect class="d-cathode" x="370" y="66" width="120" height="130" rx="12"/>
+            <g>
+              <circle class="d-dot" cx="392" cy="90" r="3"/><circle class="d-dot" cx="414" cy="90" r="3"/><circle class="d-dot" cx="436" cy="90" r="3"/><circle class="d-dot" cx="458" cy="90" r="3"/>
+              <circle class="d-dot" cx="403" cy="112" r="3"/><circle class="d-dot" cx="425" cy="112" r="3"/><circle class="d-dot" cx="447" cy="112" r="3"/><circle class="d-dot" cx="469" cy="112" r="3"/>
+              <circle class="d-dot" cx="392" cy="134" r="3"/><circle class="d-dot" cx="414" cy="134" r="3"/><circle class="d-dot" cx="436" cy="134" r="3"/><circle class="d-dot" cx="458" cy="134" r="3"/>
+              <circle class="d-dot" cx="403" cy="156" r="3"/><circle class="d-dot" cx="425" cy="156" r="3"/><circle class="d-dot" cx="447" cy="156" r="3"/><circle class="d-dot" cx="469" cy="156" r="3"/>
+              <circle class="d-dot" cx="392" cy="178" r="3"/><circle class="d-dot" cx="414" cy="178" r="3"/><circle class="d-dot" cx="436" cy="178" r="3"/><circle class="d-dot" cx="458" cy="178" r="3"/>
+            </g>
+            <!-- ions -->
+            <g class="ions">
+              <circle class="d-ion" cx="370" cy="92" r="7"/>
+              <circle class="d-ion" cx="370" cy="118" r="7"/>
+              <circle class="d-ion" cx="370" cy="140" r="7"/>
+              <circle class="d-ion" cx="370" cy="160" r="7"/>
+              <circle class="d-ion" cx="370" cy="182" r="7"/>
+            </g>
+            <!-- libellés -->
+            <text class="d-label" x="90" y="222" text-anchor="middle">Anode</text>
+            <text class="d-sub" x="90" y="240" text-anchor="middle">graphite</text>
+            <text class="d-label" x="260" y="222" text-anchor="middle">Électrolyte</text>
+            <text class="d-sub" x="260" y="240" text-anchor="middle">séparateur</text>
+            <text class="d-label" x="430" y="222" text-anchor="middle">Cathode</text>
+            <text class="d-sub" x="430" y="240" text-anchor="middle">oxyde métallique</text>
+          </svg>
+        </div>
+        <p class="muted" id="ion-caption" aria-live="polite">Recharge : les ions passent de la cathode à l’anode et se rangent dans le graphite. Plus il y en a, plus le pourcentage est élevé.</p>
+      </figure>
+
+      <div class="stack">
+        <h3 class="section-title"><span class="n">1.2</span>Pourquoi la capacité diminue</h3>
+        <div class="stack" style="gap:12px">
+          <div class="card tight row reveal"><span class="ic-badge"><svg class="ic"><use href="#i-layers"/></svg></span><div><h3>Des ions sont piégés</h3><p class="muted">Une couche protectrice (la SEI) s’épaissit sur l’anode et immobilise du lithium.</p></div></div>
+          <div class="card tight row reveal"><span class="ic-badge"><svg class="ic"><use href="#i-crack"/></svg></span><div><h3>Les matériaux se fatiguent</h3><p class="muted">Les électrodes gonflent et se contractent : des microfissures apparaissent.</p></div></div>
+          <div class="card tight row reveal"><span class="ic-badge"><svg class="ic"><use href="#i-drop"/></svg></span><div><h3>L’électrolyte s’altère</h3><p class="muted">Il conduit de moins en moins bien les ions.</p></div></div>
+        </div>
+        <p>Résultat : moins d’énergie stockée. L’<strong>usage</strong> et le <strong>temps</strong> y contribuent, même dans un tiroir.</p>
+      </div>
+
+      <div class="stack">
+        <h3 class="section-title"><span class="n">1.3</span>Un cycle n’est pas un branchement</h3>
+        <p>Un cycle = 100 % de la capacité utilisée au total, quel que soit le nombre de branchements.</p>
+        <div class="card cycle reveal" role="img" aria-label="50 % utilisés le jour 1 plus 50 % utilisés le jour 2 font environ un cycle.">
+          <div class="cyc"><span class="meta">Jour 1 · <span class="num">50 %</span> utilisés</span><div class="cyc-bar"><span></span></div></div>
+          <span class="op">+</span>
+          <div class="cyc"><span class="meta">Jour 2 · <span class="num">50 %</span> utilisés</span><div class="cyc-bar"><span></span></div></div>
+          <span class="op">=</span>
+          <div class="cyc"><span class="meta">≈ <span class="num">1</span> cycle</span><div class="cyc-bar full"><span></span></div></div>
+        </div>
+      </div>
+
+      <div class="takeaway"><svg class="ic"><use href="#i-check"/></svg><p><strong>À retenir.</strong> Inutile de vider la batterie jusqu’à 0 % pour la « recalibrer ».</p></div>
+
+      <div class="card quiz" data-quiz="m1"></div>
+    </div>
+  </section>
+
+  <!-- MODULE 2 (bleu nuit) -->
+  <section class="band night" id="module-2" aria-labelledby="m2-title">
+    <div class="wrap stack-lg">
+      <div class="mod-head">
+        <span class="eyebrow">Module 2 sur 3</span>
+        <h2 id="m2-title">Pourquoi la chaleur et les extrêmes accélèrent l’usure</h2>
+        <div class="mod-meta">
+          <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>5 minutes</span>
+          <span class="chip"><svg class="ic"><use href="#i-target"/></svg>Mécanismes et conséquences</span>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <article class="card stack reveal" style="gap:12px">
+          <span class="ic-badge amber"><svg class="ic"><use href="#i-thermo"/></svg></span>
+          <h3>La chaleur</h3>
+          <p class="muted">Au chaud, la SEI s’épaissit plus vite et l’électrolyte se décompose. Ces pertes sont <strong>définitives</strong>.</p>
+        </article>
+        <article class="card stack reveal" style="gap:12px">
+          <span class="ic-badge amber"><svg class="ic"><use href="#i-full"/></svg></span>
+          <h3>Rester longtemps à 100 %</h3>
+          <p class="muted">À tension maximale, les électrodes réagissent davantage. Quelques minutes ne posent pas problème ; des nuits entières au chaud, si.</p>
+        </article>
+        <article class="card stack reveal" style="gap:12px">
+          <span class="ic-badge amber"><svg class="ic"><use href="#i-empty"/></svg></span>
+          <h3>Vider jusqu’à l’arrêt</h3>
+          <p class="muted">Les grands écarts amplifient les microfissures. Laisser le téléphone longtemps éteint et vide peut l’endommager.</p>
+        </article>
+        <article class="card stack reveal" style="gap:12px">
+          <span class="ic-badge"><svg class="ic"><use href="#i-snow"/></svg></span>
+          <h3>Le froid</h3>
+          <p class="muted">L’autonomie baisse puis revient. Évitez en revanche de <strong>recharger une batterie très froide</strong>.</p>
+        </article>
+      </div>
+
+      <div class="stack">
+        <h3>Les conséquences concrètes</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Dans la batterie</th><th scope="col">Ce que vous remarquez</th></tr></thead>
+            <tbody>
+              <tr><td>Moins de lithium disponible</td><td>L’autonomie diminue</td></tr>
+              <tr><td>Résistance interne plus élevée</td><td>Le pourcentage chute brusquement, le téléphone chauffe davantage</td></tr>
+              <tr><td>Puissance moins bien fournie lors des pics</td><td>Arrêts inattendus, ralentissements gérés par le système</td></tr>
+              <tr><td>Production de gaz (cas avancés)</td><td>Batterie gonflée, écran ou dos qui se soulève</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="takeaway"><svg class="ic"><use href="#i-check"/></svg><p><strong>À retenir.</strong> La chaleur d’abord, puis les longues périodes à 100 % et les décharges complètes.</p></div>
+
+      <div class="card quiz" data-quiz="m2"></div>
+    </div>
+  </section>
+
+  <!-- MODULE 3 -->
+  <section class="band" id="module-3" aria-labelledby="m3-title">
+    <div class="wrap stack-lg">
+      <div class="mod-head">
+        <span class="eyebrow">Module 3 sur 3</span>
+        <h2 id="m3-title">Les bons réflexes et à quoi s’attendre</h2>
+        <div class="mod-meta">
+          <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>6 minutes</span>
+          <span class="chip"><svg class="ic"><use href="#i-target"/></svg>Deux réglages, une habitude</span>
+        </div>
+      </div>
+
+      <div class="stack">
+        <h3 class="section-title"><span class="n">3.1</span>Une plage utile, pas une règle absolue</h3>
+        <p>Entre 20 % et 80 % quand c’est facile. Besoin de 100 % pour une longue journée ? Chargez à 100 %.</p>
+        <figure class="card gauge-card" style="margin:0" aria-labelledby="gauge-cap">
+          <div class="row">
+            <span class="ic-badge"><svg class="ic"><use href="#i-target"/></svg></span>
+            <div>
+              <h3 id="gauge-cap">La plage idéale</h3>
+              <p class="muted">Ce qui use, c’est le temps passé aux extrêmes, surtout au chaud.</p>
+            </div>
+          </div>
+          <div class="gauge" role="img" aria-label="Jauge de charge de 0 à 100 % : zones à éviter durablement sous 10 % et au-dessus de 90 %, plage confortable de 20 à 80 %.">
+            <div class="gauge-bar"><span class="z-low"></span><span class="z-gap"></span><span class="z-ok"></span><span class="z-gap"></span><span class="z-high"></span></div>
+            <div class="ticks"><span style="left:0">0 %</span><span style="left:20%">20 %</span><span style="left:50%">50 %</span><span style="left:80%">80 %</span><span style="left:100%">100 %</span></div>
+          </div>
+          <div class="legend">
+            <div><span class="sw ok"></span><span><strong>20–80 %</strong> : plage confortable</span></div>
+            <div><span class="sw warn"></span><span><strong>Extrêmes</strong> : à éviter longtemps</span></div>
+            <div><span class="sw heat"></span><span><strong>Chaleur</strong> : amplifie tout</span></div>
+          </div>
+        </figure>
+      </div>
+
+      <div class="stack" id="reglages">
+        <h3 class="section-title"><span class="n">3.2</span>Deux réglages à activer</h3>
+        <div class="card stack">
+          <div class="quiz-head">
+            <p class="muted">Choisissez votre système :</p>
+            <div class="seg" role="tablist" aria-label="Système">
+              <button type="button" role="tab" id="tab-ios" aria-selected="true" aria-controls="panel-ios"><svg class="ic"><use href="#i-phone"/></svg>iPhone</button>
+              <button type="button" role="tab" id="tab-android" aria-selected="false" aria-controls="panel-android" tabindex="-1"><svg class="ic"><use href="#i-phone"/></svg>Android</button>
+            </div>
+          </div>
+
+          <div role="tabpanel" id="panel-ios" aria-labelledby="tab-ios" class="stack">
+            <div class="row"><span class="ic-badge"><svg class="ic"><use href="#i-bolt"/></svg></span><div>
+              <h3>Recharge optimisée</h3>
+              <div class="path"><span>Réglages</span><svg class="ic"><use href="#i-chev"/></svg><span>Batterie</span><svg class="ic"><use href="#i-chev"/></svg><span>options de recharge</span></div>
+              <p class="muted">Varie selon le modèle et la version d’iOS.</p>
+            </div></div>
+            <div class="row"><span class="ic-badge"><svg class="ic"><use href="#i-bright"/></svg></span><div>
+              <h3>Luminosité automatique</h3>
+              <div class="path"><span>Réglages</span><svg class="ic"><use href="#i-chev"/></svg><span>Accessibilité</span><svg class="ic"><use href="#i-chev"/></svg><span>Affichage et taille du texte</span><svg class="ic"><use href="#i-chev"/></svg><span>Luminosité automatique</span></div>
+            </div></div>
+          </div>
+
+          <div role="tabpanel" id="panel-android" aria-labelledby="tab-android" class="stack" hidden>
+            <div class="row"><span class="ic-badge"><svg class="ic"><use href="#i-bolt"/></svg></span><div>
+              <h3>Recharge adaptative</h3>
+              <div class="path"><span>Paramètres</span><svg class="ic"><use href="#i-chev"/></svg><span>Batterie</span></div>
+              <p class="muted">« Recharge adaptative », « Protéger la batterie »… selon le fabricant.</p>
+            </div></div>
+            <div class="row"><span class="ic-badge"><svg class="ic"><use href="#i-bright"/></svg></span><div>
+              <h3>Luminosité adaptative</h3>
+              <div class="path"><span>Paramètres</span><svg class="ic"><use href="#i-chev"/></svg><span>Affichage</span><svg class="ic"><use href="#i-chev"/></svg><span>Luminosité adaptative</span></div>
+              <p class="muted">Parfois nommée « Luminosité automatique ».</p>
+            </div></div>
+          </div>
+        </div>
+        <p class="muted">La recharge optimisée apprend vos horaires et marque une pause vers 80 %. Certains modèles proposent aussi une limite fixe.</p>
+      </div>
+
+      <div class="stack">
+        <h3 class="section-title"><span class="n">3.3</span>Éviter ce qui chauffe</h3>
+        <ul class="clean">
+          <li class="row"><svg class="ic" style="color:var(--amber-ink)"><use href="#i-sun"/></svg><span>Pas de plein soleil ni de voiture chaude.</span></li>
+          <li class="row"><svg class="ic" style="color:var(--amber-ink)"><use href="#i-thermo"/></svg><span>Pas de recharge sous un oreiller ou une couverture.</span></li>
+          <li class="row"><svg class="ic" style="color:var(--amber-ink)"><use href="#i-phone"/></svg><span>Pas de jeu ni de GPS prolongé pendant la charge.</span></li>
+          <li class="row"><svg class="ic" style="color:var(--amber-ink)"><use href="#i-bolt"/></svg><span>Un chargeur conforme ; remplacez tout câble abîmé.</span></li>
+        </ul>
+        <div class="note">Fermer toutes les applications n’aide pas vraiment. Repérez plutôt celle qui consomme trop dans les réglages de batterie.</div>
+      </div>
+
+      <div class="stack">
+        <h3 class="section-title"><span class="n">3.4</span>Deux usages, un an plus tard</h3>
+        <div class="grid-2 compare">
+          <div class="card reveal stack">
+            <h3><span class="ic-badge"><svg class="ic"><use href="#i-check"/></svg></span>Habitudes protectrices</h3>
+            <dl>
+              <div><dt>Usage</dt><dd>Chaleur évitée, réglages activés.</dd></div>
+                            <div><dt>Résultat</dt><dd>Vieillit, mais plus lentement.</dd></div>
+            </dl>
+          </div>
+          <div class="card reveal stack">
+            <h3><span class="ic-badge amber"><svg class="ic"><use href="#i-alert"/></svg></span>Habitudes plus éprouvantes</h3>
+            <dl>
+              <div><dt>Usage</dt><dd>Souvent vidée, longtemps à 100 % au chaud.</dd></div>
+                            <div><dt>Résultat</dt><dd>Capacité qui baisse plus vite.</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <h3 class="section-title"><span class="n">3.5</span>Une promesse réaliste</h3>
+        <p>Ces habitudes ralentissent l’usure sans l’arrêter. Elles ne garantissent ni une capacité précise après un an, ni une journée complète d’autonomie.</p>
+      </div>
+
+      <div class="takeaway amber">
+        <svg class="ic"><use href="#i-alert"/></svg>
+        <div class="stack" style="gap:6px">
+          <p><strong>Autonomie très faible ?</strong> Consultez l’état de santé de la batterie dans les réglages.</p>
+          <p>Arrêts inattendus, chaleur anormale ou batterie gonflée : cessez de l’utiliser et faites-la examiner par un professionnel.</p>
+        </div>
+      </div>
+
+      <div class="card quiz" data-quiz="m3"></div>
+    </div>
+  </section>
+
+  <!-- CONCLUSION (bleu nuit) -->
+  <section class="band night" id="plan" aria-labelledby="plan-title">
+    <div class="wrap stack-lg">
+      <div class="mod-head">
+        <span class="eyebrow">Conclusion</span>
+        <h2 id="plan-title">Votre plan d’action</h2>
+      </div>
+      <ol class="clean plan">
+        <li class="card tight"><span class="ic-badge"><svg class="ic"><use href="#i-bolt"/></svg></span><div><span class="when">Aujourd’hui</span>Activez la recharge optimisée.</div></li>
+        <li class="card tight"><span class="ic-badge"><svg class="ic"><use href="#i-bright"/></svg></span><div><span class="when">Aujourd’hui</span>Activez la luminosité automatique.</div></li>
+        <li class="card tight"><span class="ic-badge amber"><svg class="ic"><use href="#i-thermo"/></svg></span><div><span class="when">Quand c’est possible</span>Évitez la chaleur et les décharges complètes.</div></li>
+      </ol>
+      <p class="final">Inutile de contrôler chaque pourcentage. <em>Réduisez les contraintes les plus faciles à éviter</em>, et gardez assez de charge pour votre journée.</p>
+      <p class="meta" style="line-height:1.6">Menus variables selon les modèles. Explications simplifiées ; suivez aussi les recommandations du fabricant.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center">
+    <span>Batterie, mode d’emploi · micro-cours de 15 minutes</span>
+    <a href="#debut" style="color:var(--mint-ink)">Revenir en haut</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function store(key, val) { try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; } }
+
+  /* Barre de progression de lecture */
+  var bar = document.getElementById('progress');
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
+    bar.style.transform = 'scaleX(' + p + ')';
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  /* Apparition discrète (le contenu reste lisible avant) */
+  if (!reduce && 'IntersectionObserver' in window) {
+    var items = document.querySelectorAll('.reveal');
+    var vh = window.innerHeight;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove('pending'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) {
+      if (el.getBoundingClientRect().top > vh) { el.classList.add('pending'); io.observe(el); }
+    });
+  }
+
+  /* Schéma des ions */
+  var fig = document.getElementById('ion-diagram');
+  var bC = document.getElementById('mode-charge'), bU = document.getElementById('mode-use');
+  var cap = document.getElementById('ion-caption');
+  var caps = {
+    charge: 'Recharge : les ions passent de la cathode à l’anode et se rangent dans le graphite. Plus il y en a, plus le pourcentage est élevé.',
+    use: 'Utilisation : les ions reviennent vers la cathode, et les électrons alimentent le téléphone.'
+  };
+  function setMode(m) {
+    fig.classList.toggle('mode-use', m === 'use');
+    bC.setAttribute('aria-pressed', m === 'charge'); bU.setAttribute('aria-pressed', m === 'use');
+    cap.textContent = caps[m];
+  }
+  bC.addEventListener('click', function () { setMode('charge'); });
+  bU.addEventListener('click', function () { setMode('use'); });
+
+  /* Onglets iPhone / Android */
+  var tabs = [document.getElementById('tab-ios'), document.getElementById('tab-android')];
+  function selectTab(t, focus) {
+    tabs.forEach(function (x) {
+      var on = x === t;
+      x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) t.focus();
+    store('batt-os', t.id);
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { selectTab(t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); selectTab(tabs[(i + 1) % 2], true); }
+    });
+  });
+  var savedOs = store('batt-os'); if (savedOs && document.getElementById(savedOs)) selectTab(document.getElementById(savedOs));
+
+
+  /* Quiz */
+  var Q = {
+    m1: [
+      { q: 'Que se passe-t-il pendant la recharge ?', o: ['Les ions lithium sont détruits puis recréés', 'Les ions lithium se déplacent de la cathode vers l’anode', 'L’électrolyte se transforme en lithium'], a: 1, e: 'Les ions changent de place, ils ne sont ni créés ni détruits.' },
+      { q: 'Pourquoi la capacité diminue-t-elle avec le temps ?', o: ['Une partie du lithium est piégée et les matériaux se fatiguent', 'Le téléphone consomme plus en vieillissant', 'Les ions lithium s’échappent de la batterie'], a: 0, e: 'La couche SEI immobilise du lithium et les électrodes se fissurent peu à peu.' },
+      { q: 'Que représente un cycle de charge ?', o: ['Chaque branchement du téléphone', 'Toute recharge jusqu’à 100 %', 'Une utilisation cumulée équivalente à 100 % de la capacité'], a: 2, e: '50 % un jour puis 50 % le lendemain font environ un cycle.' }
+    ],
+    m2: [
+      { q: 'Pourquoi la chaleur use-t-elle la batterie ?', o: ['Elle accélère les réactions qui piègent le lithium et dégradent l’électrolyte', 'Elle fait fondre le lithium', 'Elle n’agit que sur l’écran'], a: 0, e: 'Les réactions indésirables vont plus vite au chaud, et leurs effets sont définitifs.' },
+      { q: 'Que se passe-t-il quand la batterie reste longtemps à 100 % ?', o: ['Rien, une batterie pleine est au repos', 'Elle se recalibre', 'Les électrodes sont sous tension et l’usure est favorisée'], a: 2, e: 'À tension maximale, la cathode réagit davantage et la SEI croît plus vite.' },
+      { q: 'La perte d’autonomie due au froid est-elle définitive ?', o: ['Oui, toujours', 'Non, elle est temporaire, mais recharger une batterie très froide est déconseillé', 'Non, et le froid prolonge la durée de vie'], a: 1, e: 'L’autonomie revient en se réchauffant. La recharge à froid, elle, peut abîmer la batterie.' }
+    ],
+    m3: [
+      { q: 'À quoi sert la recharge optimisée ou adaptative ?', o: ['À réduire, selon l’appareil, le temps passé à pleine charge', 'À rendre la batterie neuve', 'À garantir que la batterie ne dépasse jamais 80 %'], a: 0, e: 'Elle adapte la fin de recharge à vos habitudes. Son fonctionnement varie selon les modèles.' },
+      { q: 'Vous avez besoin de 100 % pour une longue journée. Que faire ?', o: ['Ne jamais dépasser 80 %', 'Charger à 100 %, en évitant la chaleur', 'Attendre que le téléphone s’éteigne avant de charger'], a: 1, e: 'La plage 20–80 % est un repère pratique, pas une règle.' },
+      { q: 'Que peuvent garantir les bons réflexes ?', o: ['Une journée complète d’autonomie dans tous les cas', 'Un pourcentage précis de capacité après un an', 'Aucun résultat chiffré : ils ralentissent l’usure'], a: 2, e: 'Ils réduisent certaines contraintes. Le résultat dépend aussi de l’appareil et de l’usage.' },
+      { q: 'La batterie semble gonflée. Que faire ?', o: ['Cesser d’utiliser le téléphone et demander un avis professionnel', 'Continuer à la charger la nuit', 'Le mettre au soleil pour le sécher'], a: 0, e: 'Une batterie gonflée doit être examinée sans attendre.' }
+    ]
+  };
+  var letters = ['a', 'b', 'c', 'd'];
+  function svgIcon(id) { return '<svg class="ic"><use href="#' + id + '"/></svg>'; }
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+
+  document.querySelectorAll('[data-quiz]').forEach(function (box) {
+    var data = Q[box.getAttribute('data-quiz')], score = 0, done = 0;
+    function render() {
+      score = 0; done = 0;
+      var h = '<div class="quiz-head"><h3>Vérification rapide</h3><span class="score" aria-live="polite">' + data.length + ' questions</span></div>';
+      data.forEach(function (it, qi) {
+        h += '<div class="q"><p class="q-title">' + (qi + 1) + '. ' + esc(it.q) + '</p><div class="opts">';
+        it.o.forEach(function (o, oi) {
+          h += '<button type="button" class="opt" data-q="' + qi + '" data-o="' + oi + '"><span class="k">' + letters[oi] + ')</span><span>' + esc(o) + '</span></button>';
+        });
+        h += '</div><div class="fb-slot"></div></div>';
+      });
+      h += '<div><button type="button" class="reset" hidden>Recommencer le quiz</button></div>';
+      box.innerHTML = h;
+      box.querySelector('.reset').addEventListener('click', render);
+    }
+    box.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt'); if (!b || b.disabled) return;
+      var qi = +b.dataset.q, oi = +b.dataset.o, it = data[qi];
+      var opts = box.querySelectorAll('.opt[data-q="' + qi + '"]');
+      opts.forEach(function (x) {
+        x.disabled = true;
+        var xi = +x.dataset.o;
+        if (xi === it.a) x.classList.add('is-right');
+        else if (xi === oi) x.classList.add('is-wrong');
+        else x.classList.add('is-dim');
+      });
+      var ok = oi === it.a; if (ok) score++; done++;
+      var slot = opts[0].closest('.q').querySelector('.fb-slot');
+      slot.innerHTML = '<p class="fb ' + (ok ? 'ok' : 'ko') + '" role="status">' + svgIcon(ok ? 'i-check' : 'i-info') +
+        '<span><strong>' + (ok ? 'Exact.' : 'Pas tout à fait : réponse ' + letters[it.a] + '.') + '</strong> ' + esc(it.e) + '</span></p>';
+      var s = box.querySelector('.score');
+      s.textContent = done === data.length ? score + ' / ' + data.length + ' bonnes réponses' : done + ' / ' + data.length + ' répondues';
+      if (done === data.length) box.querySelector('.reset').hidden = false;
+    });
+    render();
+  });
+})();
+</script>
+
+</body>
+</html>
