@@ -141,6 +141,13 @@ ul.clean { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
   font-size: .9rem; color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 10px; white-space: nowrap;
 }
 .top nav a:hover { color: var(--ink); background: var(--surface-2); }
+.dl-memo {
+  flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; font: 600 .88rem/1 var(--f-body);
+  padding: 8px 12px; border-radius: 10px; background: var(--mint); color: var(--on-mint); text-decoration: none; white-space: nowrap;
+}
+.dl-memo:hover { background: color-mix(in srgb, var(--mint) 88%, #fff); }
+.dl-memo .ic { width: 16px; height: 16px; }
+@media (max-width: 560px) { .dl-memo .lbl { display: none; } .dl-memo { padding: 8px; } }
 .progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--mint); transform-origin: 0 50%; transform: scaleX(0); }
 
 /* Boutons */
@@ -324,6 +331,10 @@ td { border-top: 1px solid var(--line); background: var(--surface); }
 .final { font-family: var(--f-display); font-size: clamp(1.25rem, 3.4vw, 1.6rem); line-height: 1.35; font-weight: 600; text-wrap: balance; }
 .final em { font-style: normal; color: var(--mint); }
 footer { padding-block: 28px; font-size: .9rem; color: var(--muted); border-top: 1px solid var(--line); }
+.credits { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.credits h2 { font-size: .95rem; margin: 0 0 10px; color: var(--ink); }
+.credits ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.credits strong { color: var(--ink); font-weight: 600; }
 
 /* Apparition discrète, depuis un état déjà visible */
 .reveal { transition: transform .5s ease, opacity .5s ease; }
@@ -380,6 +391,7 @@ footer { padding-block: 28px; font-size: .9rem; color: var(--muted); border-top:
       <a href="#module-3">Module 3</a>
       <a href="#plan">Plan d’action</a>
     </nav>
+    <a class="dl-memo" href="assets/fiche-memo-batterie.pdf" download aria-label="Télécharger la fiche mémo (PDF)"><svg class="ic"><use href="#i-down"/></svg><span class="lbl">Fiche mémo</span></a>
   </div>
   <div class="progress" id="progress" aria-hidden="true"></div>
 </header>
@@ -750,6 +762,16 @@ footer { padding-block: 28px; font-size: .9rem; color: var(--muted); border-top:
 </main>
 
 <footer>
+  <div class="wrap credits">
+    <h2>Crédits · outils d’IA utilisés</h2>
+    <ul>
+      <li><strong>Grok</strong> · conception du cours</li>
+      <li><strong>Claude</strong> · cours, site, pitch, vérification des faits</li>
+      <li><strong>HeyGen</strong> · vidéo avatar</li>
+      <li><strong>ElevenLabs</strong> · voix et son</li>
+      <li><strong>ChatGPT</strong> · reprompting (en appui)</li>
+    </ul>
+  </div>
   <div class="wrap" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center">
     <span>Batterie, mode d’emploi · micro-cours de 15 minutes</span>
     <a href="#debut" style="color:var(--mint-ink)">Revenir en haut</a>
