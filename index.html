@@ -102,13 +102,14 @@ body::before {
 
 /* Typographie */
 h1, h2, h3 { font-family: var(--f-display); line-height: 1.15; text-wrap: balance; margin: 0; letter-spacing: -.01em; }
-h1 { font-size: clamp(2rem, 6vw, 3.1rem); font-weight: 700; }
-h2 { font-size: clamp(1.6rem, 4.2vw, 2.15rem); font-weight: 700; }
-h3 { font-size: 1.15rem; font-weight: 600; }
+/* Échelle de la charte : 48 / 34 / 18 / 17 / 12 px */
+h1 { font-size: clamp(2.25rem, 6.5vw, 3rem); font-weight: 700; letter-spacing: -.02em; }
+h2 { font-size: clamp(1.6rem, 4.2vw, 2.125rem); font-weight: 700; }
+h3 { font-size: 1.125rem; font-weight: 600; }
 p { margin: 0; }
-.lead { font-size: 1.2rem; color: var(--muted); max-width: 38rem; }
+.lead { font-size: 1.125rem; color: var(--muted); max-width: 36rem; }
 .eyebrow {
-  font-family: var(--f-mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase;
+  font-family: var(--f-mono); font-weight: 500; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
   color: var(--mint-ink); display: inline-flex; align-items: center; gap: 8px;
 }
 .meta { font-family: var(--f-mono); font-size: .8rem; color: var(--muted); letter-spacing: .02em; }
@@ -186,6 +187,11 @@ ul.clean { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 
 /* En-tête de module */
 .mod-head { display: grid; gap: 12px; }
+.mod-text { display: grid; gap: 12px; align-content: center; }
+.mod-head.has-visual { gap: 28px; align-items: center; }
+.mod-visual { display: block; width: 100%; max-width: 400px; height: auto; margin-inline: auto; }
+.mod-visual.tall { max-width: 230px; }
+@media (min-width: 720px) { .mod-head.has-visual { grid-template-columns: 1fr 1fr; } }
 .mod-meta { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
   display: inline-flex; align-items: center; gap: 6px; font-size: .85rem; padding: 4px 10px; border-radius: 999px;
@@ -202,8 +208,46 @@ ul.clean { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .video-card figcaption { display: flex; align-items: center; gap: 8px; }
 .video-card figcaption .ic { width: 16px; height: 16px; }
 
-/* Hero : jauge de charge */
-.hero { padding-block: clamp(48px, 8vw, 88px) clamp(40px, 6vw, 64px); }
+/* Couverture (hero bleu nuit, visuel à droite) */
+.hero { padding-block: clamp(48px, 8vw, 96px) clamp(48px, 7vw, 80px); }
+.wrap.wide { max-width: calc(68rem + 32px); }
+.cover { display: grid; gap: 32px; align-items: center; }
+.cover-art { display: block; width: 100%; max-width: 320px; height: auto; margin-inline: auto; }
+@media (min-width: 860px) { .cover { grid-template-columns: 1.15fr 1fr; gap: 48px; } .cover-art { max-width: 420px; } }
+.cover-strip { display: flex; height: 14px; max-width: 360px; border-radius: 7px; overflow: hidden; background: var(--night-2); }
+.cover-strip span { width: 10%; }
+.cover-strip .w { background: var(--amber); }
+.cover-strip .ok { width: 60%; background: var(--mint); }
+.hero .video-card { width: 100%; max-width: var(--read); margin-inline: auto; }
+
+/* Visuels de la charte : traits clairs ou nuit selon la bande, menthe = protège, ambre = use */
+.v-disc { fill: var(--night-2); }
+.v-orbit { fill: none; stroke: var(--night-line); stroke-width: 2; stroke-dasharray: 2 8; stroke-linecap: round; }
+.v-badge { fill: var(--night); stroke: var(--night-line); stroke-width: 2; }
+.v-frame, .v-bat { fill: none; stroke: var(--ink); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.v-bat { stroke-width: 5; }
+.v-frame.solid { fill: var(--night); }
+.v-tip { fill: var(--ink); }
+.v-fill-mint, .v-dot-mint { fill: var(--mint); }
+.v-fill-amber, .v-dot-amber { fill: var(--amber); }
+.v-wave { fill: none; stroke: var(--amber); stroke-width: 4; stroke-linecap: round; opacity: .7; }
+.v-tick { stroke: var(--muted); stroke-width: 3; stroke-linecap: round; }
+.v-mono { fill: var(--muted); font-family: var(--f-mono); font-size: 17px; }
+.v-mono.sm { font-size: 12px; }
+.v-mono.md { font-size: 15px; }
+.v-ic { fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.v-ic.mint { stroke: var(--mint); }
+.v-ic.amber { stroke: var(--amber); }
+.v-ic.mint-ink { stroke: var(--mint-ink); }
+.v-ic.amber-ink { stroke: var(--amber-ink); }
+.v-screen { fill: var(--surface); stroke: var(--ink); stroke-width: 8; }
+.v-title { fill: var(--ink); font-family: var(--f-display); font-weight: 600; font-size: 22px; }
+.v-txt { fill: var(--ink); font-family: var(--f-body); font-weight: 600; font-size: 14px; }
+.v-row { fill: var(--surface-2); }
+.v-row-amber { fill: var(--amber-soft); }
+.v-knob { fill: #fff; }
+
+/* Jauge de charge */
 .gauge-card { display: grid; gap: 18px; }
 .gauge { position: relative; padding-top: 6px; }
 .gauge-bar {
@@ -232,12 +276,12 @@ ul.clean { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 
 /* Schéma ions */
 .diagram { display: grid; gap: 14px; }
-.diagram-frame { background: var(--surface-2); border-radius: 12px; padding: 12px; overflow-x: auto; }
+.diagram-frame { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px; overflow-x: auto; }
 .diagram-frame svg { display: block; width: 100%; height: auto; min-width: 300px; margin-inline: auto; }
-.d-anode { fill: color-mix(in srgb, var(--ink) 8%, transparent); stroke: var(--ink); stroke-width: 1.5; }
-.d-cathode { fill: color-mix(in srgb, var(--amber) 14%, transparent); stroke: var(--ink); stroke-width: 1.5; }
-.d-layer { stroke: var(--muted); stroke-width: 1.5; }
-.d-dot { fill: var(--amber); opacity: .7; }
+.d-anode { fill: var(--surface-2); stroke: var(--ink); stroke-width: 2; }
+.d-cathode { fill: var(--amber-soft); stroke: var(--ink); stroke-width: 2; }
+.d-layer { stroke: var(--muted); stroke-width: 1.75; stroke-linecap: round; }
+.d-dot { fill: var(--amber); }
 .d-sep { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 5 5; }
 .d-wire { fill: none; stroke: var(--muted); stroke-width: 1.5; }
 .d-label { fill: var(--ink); font-family: var(--f-display); font-weight: 600; font-size: 17px; }
@@ -398,16 +442,39 @@ footer { padding-block: 28px; font-size: .9rem; color: var(--muted); border-top:
 
 <main>
   <!-- HERO -->
-  <section class="hero" id="debut">
-    <div class="wrap stack-lg">
-      <div class="stack">
-        <span class="eyebrow"><svg class="ic" style="width:16px;height:16px"><use href="#i-clock"/></svg>Micro-cours · 15 minutes · iPhone et Android</span>
-        <h1>Prolongez la durée de vie de la batterie de votre téléphone</h1>
-        <p class="lead">Comprendre pourquoi une batterie s’use, et ralentir cette usure avec des habitudes simples.</p>
-        <div class="actions">
-          <a class="btn btn-mint" href="#module-1">Commencer le cours<svg class="ic"><use href="#i-down"/></svg></a>
-          <a class="btn btn-ghost" href="#reglages"><svg class="ic"><use href="#i-sliders"/></svg>Aller directement aux réglages</a>
+  <section class="hero night" id="debut">
+    <div class="wrap wide stack-lg">
+      <div class="cover">
+        <div class="stack">
+          <span class="eyebrow">Micro-cours · 15 minutes · iPhone et Android</span>
+          <h1>Batterie,<br>mode d’emploi</h1>
+          <p class="lead">Prolongez la durée de vie de la batterie de votre téléphone : comprenez pourquoi elle s’use, et ralentissez cette usure avec des habitudes simples.</p>
+          <div class="cover-strip" aria-hidden="true"><span class="w"></span><span></span><span class="ok"></span><span></span><span class="w"></span></div>
+          <div class="actions">
+            <a class="btn btn-mint" href="#module-1">Commencer le cours<svg class="ic"><use href="#i-down"/></svg></a>
+            <a class="btn btn-ghost" href="#reglages"><svg class="ic"><use href="#i-sliders"/></svg>Aller directement aux réglages</a>
+          </div>
         </div>
+
+        <svg class="cover-art v" viewBox="0 0 400 400" aria-hidden="true">
+          <circle class="v-disc" cx="200" cy="200" r="186"/>
+          <circle class="v-orbit" cx="200" cy="200" r="150"/>
+          <circle class="v-dot-mint" cx="338" cy="44" r="8"/>
+          <circle class="v-dot-mint" cx="22" cy="210" r="6" opacity=".6"/>
+          <circle class="v-dot-amber" cx="352" cy="330" r="8" opacity=".75"/>
+          <rect class="v-frame solid" x="125" y="58" width="150" height="284" rx="32"/>
+          <path class="v-frame" d="M178 86h44"/>
+          <rect class="v-bat" x="146" y="178" width="96" height="48" rx="11"/>
+          <rect class="v-tip" x="245" y="193" width="7" height="18" rx="3"/>
+          <rect class="v-fill-mint" x="155" y="187" width="62" height="30" rx="6"/>
+          <text class="v-mono" x="194" y="262" text-anchor="middle">80 %</text>
+          <circle class="v-badge" cx="62" cy="96" r="32"/>
+          <svg x="46" y="80" width="32" height="32" viewBox="0 0 24 24" class="v-ic mint"><use href="#i-bolt"/></svg>
+          <circle class="v-badge" cx="352" cy="168" r="32"/>
+          <svg x="336" y="152" width="32" height="32" viewBox="0 0 24 24" class="v-ic amber"><use href="#i-thermo"/></svg>
+          <circle class="v-badge" cx="82" cy="304" r="32"/>
+          <svg x="66" y="288" width="32" height="32" viewBox="0 0 24 24" class="v-ic mint"><use href="#i-sun"/></svg>
+        </svg>
       </div>
 
       <figure class="video-card">
@@ -568,13 +635,33 @@ footer { padding-block: 28px; font-size: .9rem; color: var(--muted); border-top:
   <!-- MODULE 2 (bleu nuit) -->
   <section class="band night" id="module-2" aria-labelledby="m2-title">
     <div class="wrap stack-lg">
-      <div class="mod-head">
-        <span class="eyebrow">Module 2 sur 3</span>
-        <h2 id="m2-title">Pourquoi la chaleur et les extrêmes accélèrent l’usure</h2>
-        <div class="mod-meta">
-          <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>5 minutes</span>
-          <span class="chip"><svg class="ic"><use href="#i-target"/></svg>Mécanismes et conséquences</span>
+      <div class="mod-head has-visual">
+        <div class="mod-text">
+          <span class="eyebrow">Module 2 sur 3</span>
+          <h2 id="m2-title">Pourquoi la chaleur et les extrêmes accélèrent l’usure</h2>
+          <div class="mod-meta">
+            <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>5 minutes</span>
+            <span class="chip"><svg class="ic"><use href="#i-target"/></svg>Mécanismes et conséquences</span>
+          </div>
         </div>
+        <svg class="mod-visual v" viewBox="-24 0 468 300" role="img" aria-label="Un thermomètre au rouge entre une batterie pleine depuis trop longtemps et une batterie vidée jusqu’à l’arrêt.">
+          <circle class="v-disc" cx="210" cy="150" r="140"/>
+          <circle class="v-badge" cx="92" cy="62" r="36"/>
+          <svg x="74" y="44" width="36" height="36" viewBox="0 0 24 24" class="v-ic amber"><use href="#i-sun"/></svg>
+          <path class="v-wave" d="M300 32q10 20 0 40M316 24q15 28 0 56M332 16q20 36 0 72"/>
+          <path class="v-frame solid" d="M195 42a15 15 0 0 1 30 0V188a34 34 0 1 1-30 0Z"/>
+          <rect class="v-fill-amber" x="203" y="78" width="14" height="140" rx="7"/>
+          <circle class="v-fill-amber" cx="210" cy="218" r="22"/>
+          <path class="v-tick" d="M242 60h16M242 92h16M242 124h16M242 156h16"/>
+          <rect class="v-bat" x="36" y="190" width="104" height="54" rx="12"/>
+          <rect class="v-tip" x="143" y="206" width="7" height="22" rx="3"/>
+          <rect class="v-fill-amber" x="46" y="200" width="84" height="34" rx="6"/>
+          <text class="v-mono md" x="92" y="276" text-anchor="middle">100 % trop longtemps</text>
+          <rect class="v-bat" x="272" y="190" width="104" height="54" rx="12"/>
+          <rect class="v-tip" x="379" y="206" width="7" height="22" rx="3"/>
+          <rect class="v-fill-amber" x="282" y="200" width="10" height="34" rx="4"/>
+          <text class="v-mono md" x="328" y="276" text-anchor="middle">vidée jusqu’à l’arrêt</text>
+        </svg>
       </div>
 
       <div class="grid-2">
@@ -624,13 +711,36 @@ footer { padding-block: 28px; font-size: .9rem; color: var(--muted); border-top:
   <!-- MODULE 3 -->
   <section class="band" id="module-3" aria-labelledby="m3-title">
     <div class="wrap stack-lg">
-      <div class="mod-head">
-        <span class="eyebrow">Module 3 sur 3</span>
-        <h2 id="m3-title">Les bons réflexes et à quoi s’attendre</h2>
-        <div class="mod-meta">
-          <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>6 minutes</span>
-          <span class="chip"><svg class="ic"><use href="#i-target"/></svg>Deux réglages, une habitude</span>
+      <div class="mod-head has-visual">
+        <div class="mod-text">
+          <span class="eyebrow">Module 3 sur 3</span>
+          <h2 id="m3-title">Les bons réflexes et à quoi s’attendre</h2>
+          <div class="mod-meta">
+            <span class="chip"><svg class="ic"><use href="#i-clock"/></svg>6 minutes</span>
+            <span class="chip"><svg class="ic"><use href="#i-target"/></svg>Deux réglages, une habitude</span>
+          </div>
         </div>
+        <svg class="mod-visual tall v" viewBox="0 0 300 420" role="img" aria-label="Écran Batterie d’un téléphone : recharge optimisée et luminosité automatique activées, éviter la chaleur coché, charge entre 20 et 80 %.">
+          <rect class="v-screen" x="14" y="8" width="272" height="404" rx="44"/>
+          <path class="v-frame" d="M128 34h44"/>
+          <text class="v-title" x="44" y="82">Batterie</text>
+          <rect class="v-row" x="36" y="102" width="228" height="62" rx="12"/>
+          <svg x="50" y="121" width="24" height="24" viewBox="0 0 24 24" class="v-ic mint-ink"><use href="#i-bolt"/></svg>
+          <text class="v-txt" x="86" y="128">Recharge</text><text class="v-txt" x="86" y="147">optimisée</text>
+          <rect class="v-fill-mint" x="200" y="120" width="48" height="26" rx="13"/><circle class="v-knob" cx="235" cy="133" r="10"/>
+          <rect class="v-row" x="36" y="176" width="228" height="62" rx="12"/>
+          <svg x="50" y="195" width="24" height="24" viewBox="0 0 24 24" class="v-ic mint-ink"><use href="#i-sun"/></svg>
+          <text class="v-txt" x="86" y="202">Luminosité</text><text class="v-txt" x="86" y="221">automatique</text>
+          <rect class="v-fill-mint" x="200" y="194" width="48" height="26" rx="13"/><circle class="v-knob" cx="235" cy="207" r="10"/>
+          <rect class="v-row-amber" x="36" y="250" width="228" height="62" rx="12"/>
+          <svg x="50" y="269" width="24" height="24" viewBox="0 0 24 24" class="v-ic amber-ink"><use href="#i-thermo"/></svg>
+          <text class="v-txt" x="86" y="276">Éviter</text><text class="v-txt" x="86" y="295">la chaleur</text>
+          <svg x="218" y="267" width="28" height="28" viewBox="0 0 24 24" class="v-ic amber-ink"><use href="#i-check"/></svg>
+          <rect class="v-row" x="36" y="336" width="228" height="18" rx="6"/>
+          <rect class="v-fill-mint" x="82" y="336" width="136" height="18" rx="4"/>
+          <text class="v-mono sm" x="82" y="378" text-anchor="middle">20 %</text>
+          <text class="v-mono sm" x="218" y="378" text-anchor="middle">80 %</text>
+        </svg>
       </div>
 
       <div class="stack">
